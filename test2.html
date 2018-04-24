@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function dragstart_handler(ev) {
+            ev.preventDefault();
+// 데이터 전달 객체에 대상 요소의 id를 추가합니다.
+            ev.dataTransfer.setData("text/plain", ev.target.id);
+            ev.dropEffect = "move";
+        }
+        function drop_handler(ev) {
+            ev.preventDefault();
+// 대상의 id를 가져와 대상 DOM에 움직인 요소를 추가합니다.
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+
+</head>
+
+<body>
+<p id="p1" draggable="true" ondragstart="dragstart_handler(event);">이 요소는 드래그 할 수 있습니다.</p>
+<div id="target" ondrop="drop_handler(event);" ondragover="dragover_handler(event);">드롭 지역</div>
+</body>
+</html>
