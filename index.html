@@ -3,106 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <style>
-        body
-        {
-            text-align: center;
-            margin: 0 auto;
-        }
-        .container{
-            position: absolute;
-            width: 300px;
-            height: 150px;
-            margin: -150px 0 0 -75px;
-            top: 50%;
-            left: 50%;
-        }
-        .box {
-            position: absolute;
-            border: 5px solid black;
-            width: 400px;
-            height: 500px;
-            padding: 50px 50px 50px 50px;
-        }
-        .box1 {
-            margin: 10px 10px 10px -500px;
-        }
-        .box2 {
-            margin: 10px 10px 10px 50px;
-        }
-        .box3 {
-            margin: 10px 10px 10px 600px;
-        }
-        .boxUp{
-            margin-top: -250px;
-        }
-        .boxDown{
-            margin-top: 650px;
-        }
-        .boxLabel{
-            border: 2px solid black;
-            background-color: #00a0ff;
-            text-align: center;
-            padding: 10px;
-            color: #ffffff;
-        }
-        .boxLabel2{
-            padding: 45px 25px 45px 25px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/basic.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
+    <script>
+        $(function () {
             $("#made").on('click', function () {
-                alert("테스트!");
+                alert("테스트2555!");
             });
 
-            $(".drop").ondrop(function (event) {
-                event.preventDefault();
-                var c = event.dataTransfer.getData("text");
-                event.target.appendChild(document.getElementById(c));
-            });
+        });
 
-            $(".drop").ondragover(function (event) {
-                event.preventDefault();
-            });
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
 
-            $(".drag").ondragstart(function (event) {
-                event.dataTransfer.setData("text", event.target.id);
-            });
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);  // 이벤트 발생 태그 (드래그)
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var c = ev.dataTransfer.getData("text");    // 드래그 시점에서 저장된 데이터 받기 (이미지ID)
+            var targetId = ev.target.id;                // 이벤트 발생 태그 (드롭)
+            var img = document.getElementById(c);     // img 태그
+            var eventHandler = function () {
+                alert("클릭확인");
+            };
+
+            console.log(img.id);
+            if (targetId == 'funcExecArea') {
+                document.getElementById("funcExec").appendChild(img);
+                img.addEventListener('click', eventHandler);
+            }
+            else{
+                document.getElementById("funcArea").appendChild(img);
+                img.addEventListener('click', function () {
+                    console.log("클릭삭제확인");
+                });
+                console.log("확인22");
+            }
+        }
 
 
-        })
     </script>
 </head>
 <body>
-    <div class="container">
-        <div class="boxUp">
-            <div class="box box1 drop">
-                <h1> 함수 놓는 곳</h1>
-            </div>
-            <div class="box box2">
-                <h1 class="boxLabel" id="made">Made by jason</h1>
-            </div>
-            <div class="box box3">
-                <h1 class="boxLabel boxLabel2">배경색 바꾸기</h1>
-                <h1 class="boxLabel boxLabel2">버튼색 바꾸기</h1>
-                <h1 class="boxLabel boxLabel2">계산화면 글씨색 바꾸기</h1>
-            </div>
+<div class="container">
+    <div class="boxUp">
+        <div class="box box1" ondrop="drop(event)" ondragover="allowDrop(event)" id="funcExecArea">
+            <h1> 함수 놓는 곳</h1>
+            <div id="funcExec"></div>
         </div>
-        <div class="boxDown">
-            <div class="box box1 drop drag">
-                <!-- 함수 -->
-                <img src="sqrt.png" draggable="true" class="drag" id="sqrt">
-                <img src="sqrt.png">
-            </div>
-            <div class="box box2">
-                <!-- 계산기 -->
-            </div>
-            <div class="box box3">
-                <h1 class="boxLabel">히스토리</h1>
-            </div>
+        <div class="box box2">
+            <h1 class="boxLabel" id="made">Made by jason</h1>
+        </div>
+        <div class="box box3">
+            <h1 class="boxLabel boxLabel2">배경색 바꾸기</h1>
+            <h1 class="boxLabel boxLabel2">버튼색 바꾸기</h1>
+            <h1 class="boxLabel boxLabel2">계산화면 글씨색 바꾸기</h1>
         </div>
     </div>
+    <div class="boxDown">
+        <div class="box box1 drop" ondrop="drop(event)" ondragover="allowDrop(event)" id="funcArea">
+            <!-- 함수 -->
+            <div>
+                <img src="img/tri.png" draggable="true" ondragstart="drag(event)"  id="tri">
+            </div>
+            <div>
+                <img src="img/exp.png" draggable="true" ondragstart="drag(event)" id="exp">
+            </div>
+            <div>
+                <img src="img/log.png" draggable="true" ondragstart="drag(event)" id="log">
+            </div>
+            <div>
+                <img src="img/sqrt.png" draggable="true" ondragstart="drag(event)" id="sqrt">
+            </div>
+            <div>
+                <img src="img/constant.png" draggable="true" ondragstart="drag(event)" id="constant">
+            </div>
+        </div>
+
+        <div class="box box2">
+            <!-- 계산기 -->
+        </div>
+        <div class="box box3">
+            <h1 class="boxLabel">히스토리</h1>
+        </div>
+    </div>
+</div>
 </body>
 </html>
