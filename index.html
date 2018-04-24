@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body
+        {
+            text-align: center;
+            margin: 0 auto;
+        }
+        .container{
+            position: absolute;
+            width: 300px;
+            height: 150px;
+            margin: -150px 0 0 -75px;
+            top: 50%;
+            left: 50%;
+        }
+        .box {
+            position: absolute;
+            border: 5px solid black;
+            width: 400px;
+            height: 500px;
+            padding: 50px 50px 50px 50px;
+        }
+        .box1 {
+            margin: 10px 10px 10px -500px;
+        }
+        .box2 {
+            margin: 10px 10px 10px 50px;
+        }
+        .box3 {
+            margin: 10px 10px 10px 600px;
+        }
+        .boxUp{
+            margin-top: -250px;
+        }
+        .boxDown{
+            margin-top: 650px;
+        }
+        .boxLabel{
+            border: 2px solid black;
+            background-color: #00a0ff;
+            text-align: center;
+            padding: 10px;
+            color: #ffffff;
+        }
+        .boxLabel2{
+            padding: 45px 25px 45px 25px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#made").on('click', function () {
+                alert("테스트!");
+            });
+
+            $(".drop").ondrop(function (event) {
+                event.preventDefault();
+                var c = event.dataTransfer.getData("text");
+                event.target.appendChild(document.getElementById(c));
+            });
+
+            $(".drop").ondragover(function (event) {
+                event.preventDefault();
+            });
+
+            $(".drag").ondragstart(function (event) {
+                event.dataTransfer.setData("text", event.target.id);
+            });
+
+
+        })
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="boxUp">
+            <div class="box box1 drop">
+                <h1> 함수 놓는 곳</h1>
+            </div>
+            <div class="box box2">
+                <h1 class="boxLabel" id="made">Made by jason</h1>
+            </div>
+            <div class="box box3">
+                <h1 class="boxLabel boxLabel2">배경색 바꾸기</h1>
+                <h1 class="boxLabel boxLabel2">버튼색 바꾸기</h1>
+                <h1 class="boxLabel boxLabel2">계산화면 글씨색 바꾸기</h1>
+            </div>
+        </div>
+        <div class="boxDown">
+            <div class="box box1 drop drag">
+                <!-- 함수 -->
+                <img src="sqrt.png" draggable="true" class="drag" id="sqrt">
+                <img src="sqrt.png">
+            </div>
+            <div class="box box2">
+                <!-- 계산기 -->
+            </div>
+            <div class="box box3">
+                <h1 class="boxLabel">히스토리</h1>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
