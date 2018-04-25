@@ -6,16 +6,12 @@
     <link rel="stylesheet" href="css/basic.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
-        $(function () {
-            $("#made").on('click', function () {
-                alert("테스트2555!");
-            });
 
-        });
 
         function allowDrop(ev) {
             ev.preventDefault();
         }
+
 
         function drag(ev) {
             ev.dataTransfer.setData("text", ev.target.id);  // 이벤트 발생 태그 (드래그)
@@ -25,26 +21,48 @@
             ev.preventDefault();
             var c = ev.dataTransfer.getData("text");    // 드래그 시점에서 저장된 데이터 받기 (이미지ID)
             var targetId = ev.target.id;                // 이벤트 발생 태그 (드롭)
-            var img = document.getElementById(c);     // img 태그
-            var eventHandler = function () {
-                alert("클릭확인");
-            };
+            var img = document.getElementById(c);       // img 태그
 
             console.log(img.id);
+
             if (targetId == 'funcExecArea') {
                 document.getElementById("funcExec").appendChild(img);
-                img.addEventListener('click', eventHandler);
+                img.onclick = function () {
+                    eventHandler(img)
+                };
             }
-            else{
+            else {
                 document.getElementById("funcArea").appendChild(img);
-                img.addEventListener('click', function () {
-                    console.log("클릭삭제확인");
-                });
-                console.log("확인22");
+                img.onclick = function () {
+                    ;
+                };
             }
         }
 
+        /*
+           함수별 처리
+         */
+        function eventHandler(img) {
+            var imgId = img.id;
 
+            // 삼각함수 이벤트 핸들러
+            if (imgId == 'tri') {
+                console.log('1');
+            }
+            else if (imgId === 'log') {
+                console.log('2');
+            }
+            else if (imgId === 'exp') {
+                console.log('3');
+            }
+            else if (imgId === 'sqrt') {
+                console.log('4');
+            }
+            else if (imgId === 'constant') {
+                console.log('5');
+            }
+            alert("클릭확!!" + img.id);
+        }
     </script>
 </head>
 <body>
@@ -83,8 +101,48 @@
             </div>
         </div>
 
+        <!-- 계산기 -->
         <div class="box box2">
-            <!-- 계산기 -->
+            <table border="1" class="calcTbl" id="calcTbl">
+                <tr>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>00</td>
+                    <td>.</td>
+                </tr>
+            </table>
+            <table border="1" class="operTbl" id="operTbl">
+                <tr>
+                    <td>+</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>x</td>
+                    <td>%</td>
+                </tr>
+                <tr>
+                    <td>/</td>
+                    <td>ce</td>
+                </tr>
+                <tr>
+                    <td>Clear</td>
+                    <td>result</td>
+                </tr>
+            </table>
         </div>
         <div class="box box3">
             <h1 class="boxLabel">히스토리</h1>

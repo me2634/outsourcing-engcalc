@@ -43,3 +43,19 @@ body
 .boxLabel2{
     padding: 45px 25px 45px 25px;
 }
+.calcTbl{
+    position: absolute;
+    width: 250px;
+    height: 500px;
+}
+.calcTbl td,
+.operTbl td{
+    font-size: 25px;
+}
+
+.operTbl {
+    position: absolute;
+    margin-left: 280px;
+    width: 150px;
+    height: 500px;
+}
