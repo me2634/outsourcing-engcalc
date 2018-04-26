@@ -4,37 +4,55 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="css/basic.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/jquery-1.12.4.min.js"></script>
     <script>
-
 
         function allowDrop(ev) {
             ev.preventDefault();
         }
 
-
+        // 드래그 함수 처리
         function drag(ev) {
             ev.dataTransfer.setData("text", ev.target.id);  // 이벤트 발생 태그 (드래그)
         }
 
+        // 드롭 함수 처리
         function drop(ev) {
             ev.preventDefault();
             var c = ev.dataTransfer.getData("text");    // 드래그 시점에서 저장된 데이터 받기 (이미지ID)
             var targetId = ev.target.id;                // 이벤트 발생 태그 (드롭)
             var img = document.getElementById(c);       // img 태그
 
-            console.log(img.id);
-
             if (targetId == 'funcExecArea') {
+
+                var childNodes = document.getElementById("funcExec").childNodes;
+
+                // 함수 놓는 곳은 1개만 허용
+                if (childNodes.length > 0) {
+                    return;
+                }
+
                 document.getElementById("funcExec").appendChild(img);
                 img.onclick = function () {
                     eventHandler(img)
                 };
+
             }
             else {
+
+                initExe();  // 실행함수 초기화
+
+                // 함수 놓는 곳 태그 삭제
                 document.getElementById("funcArea").appendChild(img);
+
+
+                var funcNode = document.getElementsByClassName("func");
+                if (funcNode.length > 0) {
+                    $(".func").remove();
+                }
+
+                // 함수 놓는 곳 -> 이벤트 삭제
                 img.onclick = function () {
-                    ;
                 };
             }
         }
@@ -43,26 +61,187 @@
            함수별 처리
          */
         function eventHandler(img) {
+
             var imgId = img.id;
 
-            // 삼각함수 이벤트 핸들러
+            // 실행함수 지역 비우기
+            initExe();
+
+            // 삼각함수 이벤트 처리
             if (imgId == 'tri') {
-                console.log('1');
+                $(function () {
+                    var triNode = document.getElementsByClassName("func");
+                    if(triNode.length == 0){
+
+                        // 삼각함수 펼치기
+                        var triFunc = {};
+                        triFunc.sin = '<div id="sin" class ="func">sin</div>';
+                        triFunc.cos = '<div id="cos" class ="func">cos</div>';
+                        triFunc.tan = '<div id="tan" class ="func">tan</div>';
+
+                        $("#funcExec").append(triFunc.sin).append(triFunc.cos).append(triFunc.tan);
+
+                        $.each(triFunc, function (key, value) {
+
+                            // 각 하위 삼각함수에 이벤트 넣기
+                            $("#"+key).on("click", function () {
+                                initExe();
+                                $("#selectFunc").append($('<div class="exe"></div>').append($(value).text()));
+                            });
+                        });
+                    }
+                });
             }
-            else if (imgId === 'log') {
-                console.log('2');
-            }
-            else if (imgId === 'exp') {
-                console.log('3');
-            }
-            else if (imgId === 'sqrt') {
-                console.log('4');
-            }
+            // 상수 이벤트 처리
             else if (imgId === 'constant') {
-                console.log('5');
+                $(function () {
+                    var triNode = document.getElementsByClassName("func");
+                    if(triNode.length == 0){
+                        var func = {};
+                        func.pi = '<div id="pi" class ="func">pi</div>'; // pi
+                        func.e = '<div id="e" class ="func">e</div>';    // 자연지수
+
+                        $("#funcExec").append(func.pi).append(func.e);
+
+                        $.each(func, function (key, value) {
+
+                            $("#"+key).on("click", function () {
+                                initExe();
+                                $("#selectFunc").append($('<div class="exe"></div>').append($(value).text()));
+                            });
+                        });
+                    }
+                });
             }
-            alert("클릭확!!" + img.id);
+            // 로그 이벤트 처리
+            else if (imgId === 'log') {
+                $("#selectFunc").append($('<div class="exe"></div>').append(imgId));
+            }
+            // 지수 이벤트 처리
+            else if (imgId === 'exp') {
+                $("#selectFunc").append($('<div class="exe"></div>').append(imgId));
+            }
+            // 루트 이벤트 처리
+            else if (imgId === 'sqrt') {
+                $("#selectFunc").append($('<div class="exe"></div>').append(imgId));
+            }
+
         }
+
+        // 실행함수 초기화 지우기!
+        function initExe() {
+            var exeNode =  document.getElementsByClassName("exe");
+            if(exeNode.length > 0){
+                $(".exe").remove();
+            }
+        }
+
+        // 계산기 숫자, 기본연산자 이벤트처리
+        $(function () {
+            var $calcExe = $("#calcExe");
+
+            // 숫자
+            $("#calcTbl td, #operTbl td").on('click', function () {
+
+                var textVal = this.innerText;
+
+                // 수식 유효체크
+                if (!'ce,Clear,result'.includes(textVal) && !validateCheck(textVal)) {
+                    alert("다시 입력해주세요. 순서가 유효하지 않습니다.");
+                    return;
+                }
+
+                // result 계산하기
+                if (textVal === 'result') {
+                    calculate($calcExe.text());
+                    return;
+                }
+
+
+                // 0, 00 처음인 경우 text 초기화
+                if((textVal !== '.' && $calcExe.text() === '0') || $calcExe.text() === '00' || (textVal === '.' && $calcExe.text().length == 0)){
+                    if(textVal === '.'){
+                        alert("소수점이 먼저 올 수 없습니다");
+                        return;
+                    }
+                    $calcExe.text("");
+                }
+
+                // 백스페이스
+                if (textVal === 'ce') {
+                    $calcExe.text($calcExe.text().substring(0, $calcExe.text().length-1));
+                    return;
+                }
+                // 클리어 -> 0으로 초기화
+                if (textVal === 'Clear') {
+                    $calcExe.text("").append('0');
+                    return;
+                }
+
+                // 소수점 처리
+                if (textVal === '.') {
+                    alert("소수점임");
+                }
+
+                // 수식 붙이기
+                $calcExe.append(textVal);
+            });
+        });
+
+        // 결과값 계산하기
+        function calculate(calcStr) {
+            alert(calcStr);
+            var result = 'result 넣기!!';
+            $("#calcExe").text(result);
+        }
+
+        // 유효체크
+        /*
+            라스트 숫자 -> true
+            라스트 연산자 / 인풋 연산자 -> false
+            라스트 점   / 인풋 연산자 -> false
+            라스트 점   / 인풋 숫자 -> true
+         */
+        function validateCheck(textVal) {
+
+            var inputFlg = /[0-9]/.test(textVal);
+
+            // 첫 입력 시점
+            if ($("#calcExe").text().length == 0) {
+                // 숫자이면 가능
+                if(inputFlg){
+                    return true;
+                }
+                // 숫자가 아니면 안됨
+                else{
+                    return false;
+                }
+            }
+
+            var lastCh = $("#calcExe").text().charAt($("#calcExe").text().length - 1);
+
+            var lastFlg = /[0-9]/.test(lastCh);
+            if (lastFlg) {
+                return true;
+            }
+            else{
+                if (inputFlg) {
+                    // 인풋 숫자
+                    return true;
+                }
+                else{
+                    return false;
+                }
+
+                // if (lastCh === '.' && inputFlg) {
+                //     return true;
+                // }else{
+                //     return false;
+                // }
+            }
+        }
+
+
     </script>
 </head>
 <body>
@@ -72,8 +251,10 @@
             <h1> 함수 놓는 곳</h1>
             <div id="funcExec"></div>
         </div>
-        <div class="box box2">
+        <div class="box box2" id="calcGround">
             <h1 class="boxLabel" id="made">Made by jason</h1>
+            <div id="selectFunc"></div>
+            <div id="calcExe"></div>
         </div>
         <div class="box box3">
             <h1 class="boxLabel boxLabel2">배경색 바꾸기</h1>

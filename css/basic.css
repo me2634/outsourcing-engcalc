@@ -5,33 +5,33 @@ body
 }
 .container{
     position: absolute;
-    width: 300px;
-    height: 150px;
-    margin: -150px 0 0 -75px;
-    top: 50%;
-    left: 50%;
+    /*width: 1500px;*/
+    /*height: 1500px;*/
+    /*margin: 50px 150px 0px -50px;*/
+    top: 40%;
+    left: 40%;
 }
 .box {
     position: absolute;
     border: 5px solid black;
-    width: 400px;
-    height: 500px;
-    padding: 50px 50px 50px 50px;
+    width: 300px;
+    height: 400px;
+    padding: 10px 10px 10px 10px;
 }
 .box1 {
-    margin: 10px 10px 10px -500px;
+    margin: 10px 10px 10px -300px;
 }
 .box2 {
     margin: 10px 10px 10px 50px;
 }
 .box3 {
-    margin: 10px 10px 10px 600px;
+    margin: 10px 10px 10px 400px;
 }
 .boxUp{
     margin-top: -250px;
 }
 .boxDown{
-    margin-top: 650px;
+    margin-top: 450px;
 }
 .boxLabel{
     border: 2px solid black;
@@ -41,21 +41,39 @@ body
     color: #ffffff;
 }
 .boxLabel2{
-    padding: 45px 25px 45px 25px;
+    padding: 15px 10px 15px 10px;
 }
 .calcTbl{
     position: absolute;
-    width: 250px;
-    height: 500px;
+    width: 150px;
+    height: 400px;
 }
 .calcTbl td,
 .operTbl td{
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .operTbl {
     position: absolute;
-    margin-left: 280px;
+    margin-left: 150px;
     width: 150px;
-    height: 500px;
+    height: 400px;
+}
+
+.func {
+    border: 1px black solid;
+    width: 100px;
+    height: 50px;
+    margin: 15px 15px 15px 15px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.exe {
+    font-size: 50px;
+}
+
+#calcExe{
+    margin-top: 100px;
+    font-size: 30px;
 }
