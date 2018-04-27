@@ -5,14 +5,107 @@
     <title>Title</title>
     <script src="js/jquery-1.12.4.min.js"></script>
     <script>
+        /*
+            수학기호 정규식 테스트
+         */
         $(function () {
-            console.log();
+            var exeStr = '10%2+5+s10+l5+c6*r5-9z+9/r2*s9+9p+2z+3e';
+            var result = exeStr;
+            document.getElementById("test").innerText = exeStr;
 
+            if (/.*[a-z].*/.test(exeStr)) {
+                var exeStrList = exeStr.split(/[\+\*\-\%\/]/gi);
+                console.log(exeStrList);
+                $.each(exeStrList, function (idx, value) {
+                    if (/[a-z]/.test(value)) {
+                        console.log(idx, " : ", value);
+                        if (value.includes('s')) {
+                            // sin
+                            result = result.replace(value, Math.sin(parseFloat(value.substring(1, value.length))).toFixed(2));
+                        }
+                        else if (value.includes('c')) {
+                            // cos
+                            result = result.replace(value, Math.cos(parseFloat(value.substring(1, value.length))).toFixed(2));
+                        }
+                        else if (value.includes('t')) {
+                            // tan
+                            result = result.replace(value, Math.tan(parseFloat(value.substring(1, value.length))).toFixed(2));
+                        }
+                        else if (value.includes('l')) {
+                            // log
+                            result = result.replace(value, Math.log(parseFloat(value.substring(1, value.length))).toFixed(2));
+                        }
+                        else if (value.includes('r')) {
+                            // root
+                            result = result.replace(value, Math.sqrt(parseFloat(value.substring(1, value.length))).toFixed(2));
+                        }
+                        else if (value.includes('p')) {
+                            // pi
+                            result = result.replace(value, (Math.PI * parseFloat(value.substring(0, value.length - 1))).toFixed(2));
+                        }
+                        else if (value.includes('e')) {
+                            // e
+                            result = result.replace(value, (Math.E * parseFloat(value.substring(0, value.length - 1))).toFixed(2));
+                        }
+                        else if (value.includes('z')) {
+                            // exp
+                            result = result.replace(value, Math.exp(parseFloat(value.substring(0, value.length - 1))).toFixed(2));
+                        }
+                    }
+                });
+                console.log('-------------------');
+                console.log('test',exeStrList.pop());
+                console.log('test',exeStrList.pop());
+                console.log('test',exeStrList.pop());
+                console.log('test',exeStrList.pop());
+                console.log('test',exeStrList.pop());
+                console.log('test',exeStrList.pop());
+            }
+            result = result.replace(/(\+\-)/gi,'-');
+            var list = result.split(/(\+|\-|\*|\/|\%)/);
 
+            console.log(list);
+
+            console.log(/[0-9]/.test('20.90'));
+            console.log(/[0-9]/.test('2090'));
+            console.log(/[0-9]/.test('20.91'));
+            console.log(/[0-9]/.test('0.90'));
+            console.log(/[0-9]/.test('0.9'));
+            console.log(/[0-9]/.test('+'));
+            console.log(/[0-9]/.test('-'));
+            console.log(/[0-9]/.test('*'));
+            console.log(/[0-9]/.test('/'));
+            console.log(/[0-9]/.test('%'));
+
+            var testList = [];
+            testList.push(1);
+            testList.push(2);
+            testList.push(100);
+
+            console.log(testList);
+
+            console.log("12345".charAt("12345".length-1));
+
+            var operObj = {
+                "+" : 1,
+                "-" : 1,
+                "*" : 2,
+                "/" : 2,
+                "%" : 2
+            };
+            var b = '%';
+            var b2 = '/';
+            var b3 = '*';
+            console.log(operObj[b]);
+            console.log(operObj[b2]);
+            console.log(operObj[b3]);
+
+            $("#result").text(result);
         });
     </script>
 </head>
 <body>
-    <div id="test">ddd</div>
+<div id="test"></div>
+<div id="result"></div>
 </body>
 </html>

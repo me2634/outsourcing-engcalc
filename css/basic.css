@@ -83,3 +83,18 @@ body
     padding: 5px;
     text-align: left;
 }
+.color {
+    font-size: 15px;
+}
+.color1 {
+    color: red;
+}
+.color2 {
+    color: blue;
+}
+.color3 {
+    color: black;
+}
+.color4 {
+    color: white;
+}

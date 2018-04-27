@@ -7,6 +7,48 @@
     <script src="js/jquery-1.12.4.min.js"></script>
     <script>
 
+        // 배경색 바꾸기
+        $(function () {
+
+            // 마우스 호버 이벤트
+            $(".chgColor").hover(function () {
+                $(this).append($("<span class='color color1' id='red'> 빨강색</span>"));
+                $(this).append($("<span class='color color2' id='blue'> 파란색</span>"));
+                $(this).append($("<span class='color color3' id='black'> 블랙</span>"));
+                $(this).append($("<span class='color color4' id='white'> 흰색</span>"));
+
+                // 호버된 현재위치의 id
+                var btnId = $(this).attr('id');
+
+                // 추가된 컬러 span태그에 이벤트처리 및 id별 분기처리
+                $('.color').on('click', function () {
+                    var colorId = $(this).attr('id');
+                    // 계산화면 배경색
+                    if (btnId === 'calcGroundColor') {
+                        $("#calcGround").css('background-color', colorId);
+                    }
+                    // 버튼색
+                    else if (btnId === 'btnColor') {
+                        $(".calcTbl td, .operTbl td").css('color', colorId);
+                    }
+                    // 계산화면글씨색
+                    else if (btnId === 'calcGroundFontColor') {
+                        $("#calcExe").css('color', colorId);
+                    }
+
+                });
+            }, function () {
+                $(this).find(".color").remove();    // 아웃시 추가된 span태그 삭제
+            });
+
+            // 호버 효과
+            $(".chgColor.fade").hover(function(){
+                $(this).fadeOut(100);
+                $(this).fadeIn(500);
+            });
+        });
+
+        // 드래그 중 이벤트
         function allowDrop(ev) {
             ev.preventDefault();
         }
@@ -23,8 +65,10 @@
             var targetId = ev.target.id;                // 이벤트 발생 태그 (드롭)
             var img = document.getElementById(c);       // img 태그
 
+            // 함수 놓는 곳 인 경우
             if (targetId == 'funcExecArea') {
 
+                // 함수이미지 자식노드 탐색
                 var childNodes = document.getElementById("funcExec").childNodes;
 
                 // 함수 놓는 곳은 1개만 허용
@@ -32,20 +76,23 @@
                     return;
                 }
 
+                // 함수놓는곳에 붙이기
                 document.getElementById("funcExec").appendChild(img);
                 img.onclick = function () {
-                    eventHandler(img)
+                    eventHandler(img);  // 클릭이벤트 처리
                 };
 
             }
+            // 함수 모여있는 곳
             else {
 
-                initExe();  // 실행함수 초기화
+                // 실행함수 초기화
+                initExe();
 
                 // 함수 놓는 곳 태그 삭제
                 document.getElementById("funcArea").appendChild(img);
 
-
+                // 함수 노드탐색 후 있는 경우 삭제
                 var funcNode = document.getElementsByClassName("func");
                 if (funcNode.length > 0) {
                     $(".func").remove();
@@ -62,12 +109,13 @@
          */
         function eventHandler(img) {
 
+            // 함수이미지 ID값
             var imgId = img.id;
 
             // 실행함수 지역 비우기
             initExe();
 
-            // 삼각함수 이벤트 처리
+            // 삼각함수 이벤트 처리 (태그ID : tri)
             if (imgId == 'tri') {
                 $(function () {
                     var triNode = document.getElementsByClassName("func");
@@ -78,12 +126,10 @@
                         triFunc.sin = '<div id="sin" class ="func">sin</div>';
                         triFunc.cos = '<div id="cos" class ="func">cos</div>';
                         triFunc.tan = '<div id="tan" class ="func">tan</div>';
-
                         $("#funcExec").append(triFunc.sin).append(triFunc.cos).append(triFunc.tan);
 
+                        // 각 삼각함수에 이벤트 처리
                         $.each(triFunc, function (key, value) {
-
-                            // 각 하위 삼각함수에 이벤트 넣기
                             $("#"+key).on("click", function () {
                                 initExe();
                                 $("#selectFunc").append($('<div class="exe"></div>').append($(value).text()));
@@ -92,7 +138,7 @@
                     }
                 });
             }
-            // 상수 이벤트 처리
+            // 상수 이벤트 처리 (태그ID : constant)
             else if (imgId === 'constant') {
                 $(function () {
                     var triNode = document.getElementsByClassName("func");
@@ -113,15 +159,15 @@
                     }
                 });
             }
-            // 로그 이벤트 처리
+            // 로그 이벤트 처리 (태그ID : log)
             else if (imgId === 'log') {
                 $("#selectFunc").append($('<div class="exe"></div>').append(imgId));
             }
-            // 지수 이벤트 처리
+            // 지수 이벤트 처리 (태그ID : exp)
             else if (imgId === 'exp') {
                 $("#selectFunc").append($('<div class="exe"></div>').append(imgId));
             }
-            // 루트 이벤트 처리
+            // 루트 이벤트 처리 (태그ID : sqrt)
             else if (imgId === 'sqrt') {
                 $("#selectFunc").append($('<div class="exe"></div>').append(imgId));
             }
@@ -139,7 +185,6 @@
         // 계산기 숫자, 기본연산자 이벤트처리
         $(function () {
             var $calcExe = $("#calcExe");
-
 
             // 숫자
             $("#calcTbl td, #operTbl td").on('click', function () {
@@ -163,7 +208,6 @@
                     return;
                 }
 
-
                 // 0, 00 처음인 경우 text 초기화
                 if((textVal !== '.' && $calcExe.text() === '0') || $calcExe.text() === '00' || (textVal === '.' && $calcExe.text().length == 0)){
                     if(textVal === '.'){
@@ -182,11 +226,6 @@
                 if (textVal === 'Clear') {
                     $calcExe.text("").append('0');
                     return;
-                }
-
-                // 소수점 처리
-                if (textVal === '.') {
-                    alert("소수점임");
                 }
 
                 // 수식 붙이기
@@ -215,11 +254,10 @@
         }
 
         // 결과값 계산하기
-        var count = 1;
+        var count = 1;  // 히스토리 넘버링
         function calculate($calcExe) {
 
             // 결과 값 계산
-            var result = 'ddd';
             var exeStr = $calcExe.html();
 
             // 수식 기호 간소화
@@ -229,71 +267,110 @@
             exeStr = exeStr.replace(/log/gi,'l');
             exeStr = exeStr.replace(/π/gi,'p');
             exeStr = exeStr.replace(/√/gi,'r');
-            exeStr = exeStr.replace(/<sup class="supExp">/gi,'');  // 지수
+            exeStr = exeStr.replace(/e<sup class="supExp">/gi,'');  // 지수
             exeStr = exeStr.replace(/<\/sup>/gi,'z');  // 지수
             exeStr = exeStr.replace(/\)/gi,'');
             exeStr = exeStr.replace(/\(/gi,'');
+            exeStr = exeStr.replace(/x/gi,'*');    // 곱셈기호 변환
 
-            var size = exeStr.length;
-            var result = exeStr;
+            if(/[\+\-\*\/\%]/.test(exeStr.charAt(exeStr.length-1))){
+                alert('마지막은 연산자가 올 수 없습니다');
+                return;
+            }
 
             // 함수 계산처리
             if(/.*[a-z].*/.test(exeStr)){
-                var temp = "";
-                for (var i = 0; i < size; i++) {
-                    var ch = exeStr.charAt(i);
+                var exeStrList = exeStr.split(/[\+\*\-\%\/]/gi);
+                $.each(exeStrList, function (idx, value) {
+                    if (/[a-z]/.test(value)) {
+                        console.log(idx, " : ", value);
+                        if (value.includes('s')) {
+                            // sin
+                            exeStr = exeStr.replace(value, Math.sin(parseFloat(value.substring(1,value.length))).toFixed(2));
+                        }
+                        else if (value.includes('c')) {
+                            // cos
+                            exeStr = exeStr.replace(value, Math.cos(parseFloat(value.substring(1,value.length))).toFixed(2));
+                        }
+                        else if (value.includes('t')) {
+                            // tan
+                            exeStr = exeStr.replace(value, Math.tan(parseFloat(value.substring(1,value.length))).toFixed(2));
+                        }
+                        else if (value.includes('l')) {
+                            // log
+                            exeStr = exeStr.replace(value, Math.log(parseFloat(value.substring(1,value.length))).toFixed(2));
+                        }
+                        else if (value.includes('r')) {
+                            // root
+                            exeStr = exeStr.replace(value, Math.sqrt(parseFloat(value.substring(1,value.length))).toFixed(2));
+                        }
+                        else if (value.includes('p')) {
+                            // pi
+                            exeStr = exeStr.replace(value, (Math.PI * parseFloat(value.substring(0,value.length - 1))).toFixed(2));
+                        }
+                        else if (value.includes('e')) {
+                            // e
+                            exeStr = exeStr.replace(value, (Math.E * parseFloat(value.substring(0,value.length - 1))).toFixed(2));
+                        }
+                        else if (value.includes('z')) {
+                            // exp
+                            exeStr = exeStr.replace(value, Math.exp(parseFloat(value.substring(0,value.length - 1))).toFixed(2));
+                        }
+                    }
+                });
 
-                    if (!isNaN(ch)) {
-                        temp += ch;
-                        continue;
-                    }
-
-                    if (ch === 's') {
-                        // sin
-                        result = exeStr.replace(temp+ch,Math.sin(parseInt(temp)));
-                    }
-                    else if (ch === 'c') {
-                        // cos
-                        result = exeStr.replace(temp+ch,Math.cos(parseInt(temp)));
-                    }
-                    else if (ch === 't') {
-                        // tan
-                        result = exeStr.replace(temp+ch,Math.tan(parseInt(temp)));
-                    }
-                    else if (ch === 'l') {
-                        // log
-                        result = exeStr.replace(temp+ch,Math.log(parseInt(temp)));
-                    }
-                    else if (ch === 'p') {
-                        // pi
-                        result = exeStr.replace(temp+ch, Math.PI * (parseInt(temp)));
-                    }
-                    else if (ch === 'r') {
-                        // root
-                    }
-                    else if (ch === 'z') {
-                        // exp
-                        // result = exeStr.replace(temp+ch,Math.exp(parseInt(temp)));
-                    }
-
-                    temp = "";
-                }
+                // 계산 후 음수 처리 되어 연산기호가 2개붙는 경우 기호 단순화
+                exeStr = exeStr.replace(/(\+\-)/gi,'-');
+                exeStr = exeStr.replace(/(\*\-)/gi,'#');
+                exeStr = exeStr.replace(/(\%\-)/gi,'@');
+                exeStr = exeStr.replace(/(\/\-)/gi,'!');
             }
 
-            for (var i = 0; i < size; i++) {
-                var ch = exeStr.charAt(i);
-                if(isNaN(ch)){
-                    // 함수형들 처리
-                    console.log("문자 : ", ch);
-                }else{
-                    console.log("숫자 : ", ch);
+            // 연산 우선순위 정의
+            var operObj = {
+                "+" : 1,
+                "-" : 1,
+                "*" : 2,
+                "/" : 2,
+                "#" : 2,    // *-
+                "@" : 2,    // %-
+                "!" : 2,    // /-
+                "%" : 3
+            };
+
+            // 기본연산 수행
+            var exeStrList = exeStr.split(/(\+|\-|\*|\/|\%|\#|\@|\!)/);
+            var numStack = [];  // 숫자를 담기 위한 Stack
+            var operStack = []; // 연산자를 담기 위한 Stack
+            $.each(exeStrList, function (idx, value) {
+                // 숫자가 2개 쌓이면 판단 후 계산
+                if (numStack.length >= 2 && !(/[0-9]/.test(value))) {
+
+                    // 우선순위 판단
+                    var operPre = operStack.pop();
+                    // 앞의 연산자가  현재연산자보다 우선순위가 같거나 크면 계산 실행
+                    if (operObj[operPre] >= operObj[value]) {
+                        numStack.push(calculateBagic(numStack.pop(), numStack.pop(), operPre));
+                    }
+                    else {
+                        operStack.push(operPre); // Stack 재 저장
+                    }
                 }
+
+                // 숫자
+                if (/[0-9]/.test(value)) {
+                    numStack.push(value);
+                }
+                // 문자
+                else {
+                    operStack.push(value);
+                }
+            });
+
+            // 스택이 비어질 때까지 기본연산작업 실행
+            while (numStack.length > 1) {
+                numStack.push(calculateBagic(numStack.pop(), numStack.pop(), operStack.pop()));
             }
-
-
-
-
-
 
             // 히스토리가 5개 이상인 경우 맨 앞 삭제
             if ($(".history").length >= 5) {
@@ -304,7 +381,7 @@
             var appendHTML = '<div class="history">';
             appendHTML += (count++) + '. ';
             appendHTML += $calcExe.html();
-            appendHTML += ' = ' + result;
+            appendHTML += ' = ' + numStack.pop();
             appendHTML += '</div>';
             $("#historyGround").append(appendHTML);
 
@@ -312,8 +389,46 @@
             $("#calcExe").text('');
         }
 
-        // 유효체크
         /*
+            기본연산 수행 +, -, *, /, %
+         */
+        function calculateBagic(pop1, pop2, operPre) {
+            var num1 = parseFloat(pop1);
+            var num2 = parseFloat(pop2);
+            var re = 0;
+            
+            if (operPre === '+') {
+                re = num2 + num1;
+            }
+            else if (operPre === '-') {
+                re = num2 - num1;
+            }
+            else if (operPre === '*') {
+                re = num2 * num1;
+            }
+            else if (operPre === '/') {
+                re = num2 / num1;
+            }
+            else if (operPre === '%') {
+                re = num2 % num1;
+            }
+            else if (operPre === '#') {
+                re = num2 * num1 * (-1);
+            }
+            else if (operPre === '@') {
+                re = num2 % num1 * (-1);
+            }
+            else if (operPre === '!') {
+                re = num2 / num1 * (-1);
+            }
+            else {
+                re = 0;
+            }
+            return Math.pow(re,1).toFixed(2);
+        }
+
+        /*
+            입력 유효성 체크
             라스트 숫자 -> true
             라스트 연산자 / 인풋 연산자 -> false
             라스트 점   / 인풋 연산자 -> false
@@ -335,30 +450,31 @@
                 }
             }
 
-
-
             var lastCh = $("#calcExe").text().charAt($("#calcExe").text().length - 1);
             var lastFlg = /[0-9]/.test(lastCh);
-
-            // 루트 and 마지막이 숫자이면 false
-            if (lastFlg && textVal.includes('&radic;')) {
-                return false;
-            }
 
             // 지수함수
             if (textVal.includes('sup')) {
                 if ($("#calcExe").text() === '0' || $("#calcExe").text() === '00') {
                     return true;
                 }
-                return lastFlg ? false : true;
+                return lastFlg || "),e".includes(lastCh) || 'π' == lastCh ? false : true;
             }
 
             if (lastFlg) {
-
+                // 마지막 숫자 -> 루트, 로그, 삼각함수는 제외
+                if (textVal.includes('&radic;')
+                    || textVal.includes('sin')
+                    || textVal.includes('cos')
+                    || textVal.includes('tan')
+                    || textVal.includes('log')) {
+                    return false;
+                }
 
                 return true;
             }
             else{
+                // 연산자 경우 유효성 체크
 
                 if (inputFlg) {
                     if ("),e".includes(lastCh) || 'π' == lastCh) {
@@ -393,9 +509,9 @@
             <div id="calcExe"></div>
         </div>
         <div class="box box3">
-            <h1 class="boxLabel boxLabel2">배경색 바꾸기</h1>
-            <h1 class="boxLabel boxLabel2">버튼색 바꾸기</h1>
-            <h1 class="boxLabel boxLabel2">계산화면 글씨색 바꾸기</h1>
+            <h1 class="boxLabel boxLabel2 chgColor" id="calcGroundColor">배경색 바꾸기</h1>
+            <h1 class="boxLabel boxLabel2 chgColor" id="btnColor">버튼색 바꾸기</h1>
+            <h1 class="boxLabel boxLabel2 chgColor" id="calcGroundFontColor">계산화면 글씨색 바꾸기</h1>
         </div>
     </div>
     <div class="boxDown">
