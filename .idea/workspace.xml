@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="76c007db-b198-44ac-94e9-6ab83b5762d1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/jquery-1.12.4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test3.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/basic.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/basic.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.html" beforeDir="false" afterPath="$PROJECT_DIR$/test2.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -26,17 +26,35 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="101" column="80" lean-forward="true" selection-start-line="101" selection-start-column="80" selection-end-line="101" selection-end-column="80" />
+            <state relative-caret-position="119">
+              <caret line="327" column="28" selection-start-line="327" selection-start-column="28" selection-end-line="327" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="basic.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/css/basic.css">
+      <file leaf-file-name="test.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="43" column="30" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
+            <state relative-caret-position="38">
+              <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test2.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test2.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="608">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test3.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test3.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
         </entry>
@@ -46,8 +64,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -57,6 +75,7 @@
       <find>img</find>
       <find>calcExe</find>
       <find>boxLabel2</find>
+      <find>sup</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -69,6 +88,8 @@
         <option value="$PROJECT_DIR$/js/jquery-1.12.4.min.js" />
         <option value="$PROJECT_DIR$/js/jquery-2.2.4.min.js" />
         <option value="$PROJECT_DIR$/css/basic.css" />
+        <option value="$PROJECT_DIR$/test2.html" />
+        <option value="$PROJECT_DIR$/test3.html" />
         <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
@@ -89,10 +110,10 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1583" />
-    <option name="y" value="27" />
-    <option name="width" value="1140" />
-    <option name="height" value="999" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="2576" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -158,8 +179,21 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JavaScript Debug.index.html">
     <configuration name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" nameIsGenerated="true" engineId="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" uri="http://localhost:63342/outsourcing-engcalc/index.html" />
+    <configuration name="test2.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/outsourcing-engcalc/test2.html" />
+    <configuration name="test3.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/outsourcing-engcalc/test3.html" />
+    <list>
+      <item itemvalue="JavaScript Debug.index.html" />
+      <item itemvalue="JavaScript Debug.test2.html" />
+      <item itemvalue="JavaScript Debug.test3.html" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.test3.html" />
+        <item itemvalue="JavaScript Debug.test2.html" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration>C:\Users\sms\AppData\Roaming\Subversion</configuration>
@@ -181,7 +215,9 @@
       <workItem from="1524589948976" duration="3729000" />
       <workItem from="1524620681693" duration="7016000" />
       <workItem from="1524665562705" duration="8960000" />
-      <workItem from="1524705609372" duration="22059000" />
+      <workItem from="1524705609372" duration="22233000" />
+      <workItem from="1524733034761" duration="3000" />
+      <workItem from="1524752980554" duration="24317000" />
     </task>
     <task id="LOCAL-00001" summary="드래그 앤 드롭 이벤트기능 추가">
       <created>1524593642284</created>
@@ -197,11 +233,18 @@
       <option name="project" value="LOCAL" />
       <updated>1524646838282</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="계산기,기본연산,함수 입력 구현">
+      <created>1524732870373</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1524732870373</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50414000" />
+    <option name="totallyTimeSpent" value="74908000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -213,9 +256,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="2576" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4965035" visible="true" weight="0.10695469" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4965035" visible="true" weight="0.10677699" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286385" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.3576923" side_tool="true" weight="0.39493948" />
@@ -224,7 +268,7 @@
       <window_info id="Structure" order="1" sideWeight="0.50233644" side_tool="true" weight="0.2538518" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.2948295" />
       <window_info id="Favorites" order="2" sideWeight="0.5034965" side_tool="true" weight="0.2538518" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.6423077" visible="true" weight="0.28135222" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.6423077" weight="0.28135222" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -243,11 +287,12 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="드래그 앤 드롭 이벤트기능 추가" />
     <MESSAGE value="계산기 화면 구성 및 함수 이벤트처리" />
-    <option name="LAST_COMMIT_MESSAGE" value="계산기 화면 구성 및 함수 이벤트처리" />
+    <MESSAGE value="계산기,기본연산,함수 입력 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="계산기,기본연산,함수 입력 구현" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="19" />
+      <option name="time" value="20" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JavascriptDebugType">
@@ -281,6 +326,34 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1938">
+          <caret line="102" lean-forward="true" selection-start-line="102" selection-end-line="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/basic.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="43" column="30" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2280">
+          <caret line="120" column="39" lean-forward="true" selection-start-line="120" selection-start-column="39" selection-end-line="120" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/basic.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="817">
+          <caret line="43" column="30" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
@@ -351,44 +424,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/math.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74047">
-          <caret line="21602" lean-forward="true" selection-start-line="21602" selection-end-line="21602" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/jquery-2.2.4.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="3" column="21314" selection-start-line="3" selection-start-column="21314" selection-end-line="3" selection-end-column="21314" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/js/jquery-2.2.4.min.js" />
     <entry file="file://$PROJECT_DIR$/js/jquery-1.12.4.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
           <caret line="2" column="9172" selection-start-line="2" selection-start-column="9172" selection-end-line="2" selection-end-column="9172" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/css/basic.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="43" column="30" selection-start-line="43" selection-start-column="30" selection-end-line="43" selection-end-column="30" />
+        <state relative-caret-position="69">
+          <caret line="46" column="23" lean-forward="true" selection-start-line="46" selection-start-column="23" selection-end-line="46" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/math.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test3.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="101" column="80" lean-forward="true" selection-start-line="101" selection-start-column="80" selection-end-line="101" selection-end-column="80" />
+        <state relative-caret-position="119">
+          <caret line="327" column="28" selection-start-line="327" selection-start-column="28" selection-end-line="327" selection-end-column="28" />
         </state>
       </provider>
     </entry>

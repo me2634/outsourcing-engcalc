@@ -1,27 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script>
-        function dragstart_handler(ev) {
-            ev.preventDefault();
-// 데이터 전달 객체에 대상 요소의 id를 추가합니다.
-            ev.dataTransfer.setData("text/plain", ev.target.id);
-            ev.dropEffect = "move";
-        }
-        function drop_handler(ev) {
-            ev.preventDefault();
-// 대상의 id를 가져와 대상 DOM에 움직인 요소를 추가합니다.
-            var data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
-        }
-    </script>
+    <style> ul {
+        margin-left: 20px;
+        color: blue;
+    }
 
+    li {
+        cursor: default;
+    }
+
+    span.color1 {
+        color: red;
+    }
+    span.color2 {
+        color: blue;
+    }
+    span.color3 {
+        color: aqua;
+    }
+    </style>z
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 </head>
-
 <body>
-<p id="p1" draggable="true" ondragstart="dragstart_handler(event);">이 요소는 드래그 할 수 있습니다.</p>
-<div id="target" ondrop="drop_handler(event);" ondragover="dragover_handler(event);">드롭 지역</div>
+<ul>
+    <li>Milk</li>
+    <li>Bread</li>
+    <li class='fade'>Chips</li>
+    <li class='fade'>Socks</li>
+</ul>
+<script>
+
+    $("li").hover(function () {
+        $(this).append($("<span class='color color1'> *</span>"));
+        $(this).append($("<span class='color color2'> **</span>"));
+        $(this).append($("<span class='color color3'> ***</span>"));
+        $('.color').on('click', function () {
+            alert(this.innerText);
+        });
+    }, function () {
+        $(this).find(".color").remove();
+        // $(this).find("span:last").remove();
+    }); //li with fade class
+
+    $("li.fade").hover(function(){
+        $(this).fadeOut(100);
+        $(this).fadeIn(500);
+    });
+</script>
 </body>
 </html>

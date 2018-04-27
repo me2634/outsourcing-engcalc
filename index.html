@@ -140,10 +140,16 @@
         $(function () {
             var $calcExe = $("#calcExe");
 
+
             // 숫자
             $("#calcTbl td, #operTbl td").on('click', function () {
 
                 var textVal = this.innerText;
+
+                // 함수가 있는 경우
+                if (document.getElementsByClassName("exe").length > 0 && /[0-9]/.test(textVal)) {
+                    textVal = funcCalculate(textVal);
+                }
 
                 // 수식 유효체크
                 if (!'ce,Clear,result'.includes(textVal) && !validateCheck(textVal)) {
@@ -153,7 +159,7 @@
 
                 // result 계산하기
                 if (textVal === 'result') {
-                    calculate($calcExe.text());
+                    calculate($calcExe);
                     return;
                 }
 
@@ -188,11 +194,122 @@
             });
         });
 
+        // 함수 적용
+        function funcCalculate(textVal) {
+            var exeFunc = document.getElementsByClassName("exe")[0].innerHTML;
+            if ('sin,cos,tan,log'.includes(exeFunc)) {
+                return exeFunc + "(" + textVal + ")";
+            }
+            else if('exp' === exeFunc){
+                return 'e'+'<sup class="supExp">'+textVal+'</sup>';
+            }
+            else if ('sqrt' === exeFunc) {
+                return '&radic;'+textVal;
+            }
+            else if ('pi' === exeFunc) {
+                return textVal + '&pi;';
+            }
+            else {
+                return textVal + exeFunc;
+            }
+        }
+
         // 결과값 계산하기
-        function calculate(calcStr) {
-            alert(calcStr);
-            var result = 'result 넣기!!';
-            $("#calcExe").text(result);
+        var count = 1;
+        function calculate($calcExe) {
+
+            // 결과 값 계산
+            var result = 'ddd';
+            var exeStr = $calcExe.html();
+
+            // 수식 기호 간소화
+            exeStr = exeStr.replace(/sin/gi,'s');
+            exeStr = exeStr.replace(/cos/gi,'c');
+            exeStr = exeStr.replace(/tan/gi,'t');
+            exeStr = exeStr.replace(/log/gi,'l');
+            exeStr = exeStr.replace(/π/gi,'p');
+            exeStr = exeStr.replace(/√/gi,'r');
+            exeStr = exeStr.replace(/<sup class="supExp">/gi,'');  // 지수
+            exeStr = exeStr.replace(/<\/sup>/gi,'z');  // 지수
+            exeStr = exeStr.replace(/\)/gi,'');
+            exeStr = exeStr.replace(/\(/gi,'');
+
+            var size = exeStr.length;
+            var result = exeStr;
+
+            // 함수 계산처리
+            if(/.*[a-z].*/.test(exeStr)){
+                var temp = "";
+                for (var i = 0; i < size; i++) {
+                    var ch = exeStr.charAt(i);
+
+                    if (!isNaN(ch)) {
+                        temp += ch;
+                        continue;
+                    }
+
+                    if (ch === 's') {
+                        // sin
+                        result = exeStr.replace(temp+ch,Math.sin(parseInt(temp)));
+                    }
+                    else if (ch === 'c') {
+                        // cos
+                        result = exeStr.replace(temp+ch,Math.cos(parseInt(temp)));
+                    }
+                    else if (ch === 't') {
+                        // tan
+                        result = exeStr.replace(temp+ch,Math.tan(parseInt(temp)));
+                    }
+                    else if (ch === 'l') {
+                        // log
+                        result = exeStr.replace(temp+ch,Math.log(parseInt(temp)));
+                    }
+                    else if (ch === 'p') {
+                        // pi
+                        result = exeStr.replace(temp+ch, Math.PI * (parseInt(temp)));
+                    }
+                    else if (ch === 'r') {
+                        // root
+                    }
+                    else if (ch === 'z') {
+                        // exp
+                        // result = exeStr.replace(temp+ch,Math.exp(parseInt(temp)));
+                    }
+
+                    temp = "";
+                }
+            }
+
+            for (var i = 0; i < size; i++) {
+                var ch = exeStr.charAt(i);
+                if(isNaN(ch)){
+                    // 함수형들 처리
+                    console.log("문자 : ", ch);
+                }else{
+                    console.log("숫자 : ", ch);
+                }
+            }
+
+
+
+
+
+
+            // 히스토리가 5개 이상인 경우 맨 앞 삭제
+            if ($(".history").length >= 5) {
+                $(".history:eq(0)").remove();
+            }
+
+            // 결과 붙일 히스토리 태그
+            var appendHTML = '<div class="history">';
+            appendHTML += (count++) + '. ';
+            appendHTML += $calcExe.html();
+            appendHTML += ' = ' + result;
+            appendHTML += '</div>';
+            $("#historyGround").append(appendHTML);
+
+            // 결과 화면 초기화
+            $("#calcExe").text('');
         }
 
         // 유효체크
@@ -208,8 +325,8 @@
 
             // 첫 입력 시점
             if ($("#calcExe").text().length == 0) {
-                // 숫자이면 가능
-                if(inputFlg){
+                // 숫자 or exp이면 가능
+                if(inputFlg || textVal.includes('sup')){
                     return true;
                 }
                 // 숫자가 아니면 안됨
@@ -218,26 +335,45 @@
                 }
             }
 
-            var lastCh = $("#calcExe").text().charAt($("#calcExe").text().length - 1);
 
+
+            var lastCh = $("#calcExe").text().charAt($("#calcExe").text().length - 1);
             var lastFlg = /[0-9]/.test(lastCh);
+
+            // 루트 and 마지막이 숫자이면 false
+            if (lastFlg && textVal.includes('&radic;')) {
+                return false;
+            }
+
+            // 지수함수
+            if (textVal.includes('sup')) {
+                if ($("#calcExe").text() === '0' || $("#calcExe").text() === '00') {
+                    return true;
+                }
+                return lastFlg ? false : true;
+            }
+
             if (lastFlg) {
+
+
                 return true;
             }
             else{
+
                 if (inputFlg) {
+                    if ("),e".includes(lastCh) || 'π' == lastCh) {
+                        return false;
+                    }
                     // 인풋 숫자
                     return true;
                 }
                 else{
+                    if ("),e".includes(lastCh) || 'π' == lastCh) {
+                        return true;
+                    }
                     return false;
                 }
 
-                // if (lastCh === '.' && inputFlg) {
-                //     return true;
-                // }else{
-                //     return false;
-                // }
             }
         }
 
@@ -327,6 +463,7 @@
         </div>
         <div class="box box3">
             <h1 class="boxLabel">히스토리</h1>
+            <div id="historyGround"></div>
         </div>
     </div>
 </div>
