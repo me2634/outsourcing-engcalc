@@ -298,7 +298,7 @@
                         }
                         else if (value.includes('l')) {
                             // log
-                            exeStr = exeStr.replace(value, Math.log(parseFloat(value.substring(1,value.length))).toFixed(2));
+                            exeStr = exeStr.replace(value, Math.log10(parseFloat(value.substring(1,value.length))).toFixed(2))
                         }
                         else if (value.includes('r')) {
                             // root
